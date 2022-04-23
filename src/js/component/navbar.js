@@ -11,9 +11,9 @@ export const Navbar = () => {
         <span className="navbar-brand mb-0 h1">STAR WARS</span>
       </Link>
       <div className="ml-auto">
-        <div class="btn-group">
+        <div className="btn-group">
           <button
-            class="btn btn-primary btn-md dropdown-toggle"
+            className="btn btn-primary btn-md dropdown-toggle"
             type="button"
             data-toggle="dropdown"
             aria-haspopup="true"
@@ -21,7 +21,16 @@ export const Navbar = () => {
           >
             Favorites
           </button>
-          <div className="dropdown-menu">{/* //{store.favorites.map()} */}</div>
+          <div className={store.favorites.length > 0? "dropdown-menu show" : "d-none"}> 
+            <ul>
+              {store.favorites.length > 0? store.favorites.map((favorite, index) => (
+                <li key={index}>
+                  <span>{favorite.name}</span>
+                  <span onClick={() => deleteFav(favorite.name)}>delete</span>
+                </li>
+              )):null}
+            </ul>
+          </div>
         </div>
       </div>
     </nav>

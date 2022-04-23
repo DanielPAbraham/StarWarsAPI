@@ -20,22 +20,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((responseAsJson) => {
             // Do stuff with the JSONified response
             console.log(responseAsJson.results);
-			setStore({ [entity] : responseAsJson.results });
+            setStore({ [entity]: responseAsJson.results });
           })
           .catch((error) => {
             console.log("Looks like there was a problem: \n", error);
           });
       },
-      addFav: (newFaveName, index) => {
-        const newFav = getStore().favorites.filter((favName)=> newFaveName != favName);
-        
-        setStore({ favorites: newFav });
+
+      addFav: (newFav) => {
+        let newFavorites = getStore().favorites;
+        newFavorites.push(newFav);
+
+        setStore({ favorites: newFavorites });
       },
 
-      deleteFav: (i)=> {
-          let filtered = getStore().favorites.filter((item, index)=> i !=index);
+      deleteFav: (name) => {
+        let filtered = getStore().favorites.filter((item) => item.name != name);
 
-          setStore({ favorites: filtered});
+        setStore({ favorites: filtered });
       },
 
       changeColor: (index, color) => {
